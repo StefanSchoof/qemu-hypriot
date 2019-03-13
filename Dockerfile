@@ -1,4 +1,4 @@
-FROM tianon/qemu
+FROM tianon/qemu as builder
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -9,6 +9,10 @@ RUN wget https://github.com/hypriot/image-builder-rpi/releases/download/v1.10.0/
  && 7z x hypriot.zip \
  && 7z x hypriot*.img 0.fat \
  && 7z x 0.fat kernel7.img bcm2709-rpi-2-b.dtb
+
+FROM tianon/qemu
+
+COPY --from=builder kernel7.img bcm2709-rpi-2-b.dtb hypriotos-rpi-v1.10.0.img /
 
 CMD qemu-system-arm \
     -machine raspi2 \
