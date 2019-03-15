@@ -16,8 +16,6 @@ COPY --from=builder kernel7.img bcm2709-rpi-2-b.dtb hypriotos-rpi-v1.10.0.img /
 
 CMD qemu-system-arm \
     -machine raspi2 \
-    -m 256 \
-    -cpu arm1176 \
     -kernel kernel7.img \
     -dtb bcm2709-rpi-2-b.dtb \
     -append "rw earlyprintk loglevel=8 console=ttyAMA0,115200 dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootdelay=1" \
